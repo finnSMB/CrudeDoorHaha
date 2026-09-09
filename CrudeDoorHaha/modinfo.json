@@ -1,0 +1,14 @@
+{
+    "$schema": "https://moddbcdn.vintagestory.at/schema/modinfo.latest.json",
+    "type": "Code",
+    "modid": "crudedoorhaha",
+    "name": "Crude Door Haha",
+    "authors": [
+        "Finna"
+    ],
+    "description": "Humiliating laugh when breaking a crude door. How silly of you!",
+    "version": "1.0.0",
+    "dependencies": {
+        "game": "1.22.0"
+    }
+}
