@@ -6,9 +6,20 @@ namespace CrudeDoorHaha;
 
 public class CrudeDoorHahaModSystem : ModSystem
 {
-    public override void Start(ICoreAPI api)
+    private Harmony? harmony;
+
+    public override void StartPre(ICoreAPI api)
     {
-        new Harmony(Mod.Info.ModID).PatchAll();
+        if (Harmony.HasAnyPatches(Mod.Info.ModID)) return;
+
+        harmony = new Harmony(Mod.Info.ModID);
+        harmony.PatchAllUncategorized();
+    }
+
+    public override void Dispose()
+    {
+        harmony?.UnpatchAll(harmony.Id);
+        base.Dispose();
     }
 }
 
@@ -27,7 +38,7 @@ internal static class CrudeDoorPatch
         // .. and if for some reason there will ever exist more door-crude's (modded, whatever)
         if (__instance.Api.Side != EnumAppSide.Server || __instance.Block.Code.Path != "door-crude" || world.BlockAccessor.GetBlock(pos).Id != air) return;
 
-        var laughAssLoc = new AssetLocation("crudedoorhaha", $"sounds/laugh{world.Rand.Next(1, 11)}");
+        var laughAssLoc = new AssetLocation("crudedoorhaha", $"sounds/laugh{world.Rand.Next(2, 11)}");
         world.PlaySoundAt(laughAssLoc, pos, 0, null, false, range: 32, volume: 1);
     }
 }
